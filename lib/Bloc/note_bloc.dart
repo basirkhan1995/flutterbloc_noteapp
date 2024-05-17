@@ -12,19 +12,20 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
   NoteBloc(this.repository) : super(NoteInitial()) {
 
     //Event controllers
+
+    //GET ALL NOTE EVENT
     on<GetAllNoteEvent>((event, emit) async{
       emit(LoadingState());
       try{
          final notes = await repository.getNotes();
          emit(LoadedState(notes));
-
       }catch(e){
         emit(FailureState(e.toString()));
       }
 
     });
 
-    //Add note
+    //Add Note Event [ON ADD BUTTON]
     on<AddNoteEvent>((event, emit)async{
       emit(LoadingState());
       try{
@@ -45,13 +46,13 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
       }
     });
 
-    //Get note by Id
+    //Get Note By Id [On a Single Note Click] - Let you to Get a Note by ID
     on<GetNoteByIdEvent>((event, emit)async{
       final notes = await repository.getNoteById(event.id);
       emit(GetNoteByIdState(notes));
     });
 
-    //Update
+    //Update Note Event - When [ON UPDATE BUTTON] is Pressed
     on<UpdateNoteEvent>((event, emit)async{
       try{
        final notes = await repository.updateNote(Notes(
@@ -70,7 +71,7 @@ class NoteBloc extends Bloc<NoteEvent, NoteState> {
 
     });
 
-    //Delete
+    //Delete Note Event - When [ON Delete BUTTON] is Pressed
     on<DeleteNoteEvent>((event,emit)async{
       try{
        final res = await repository.deleteNote(event.id);

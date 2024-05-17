@@ -7,13 +7,21 @@ Notes notesFromMap(String str) => Notes.fromMap(json.decode(str));
 
 String notesToMap(Notes data) => json.encode(data.toMap());
 
+/*
+ Why Equatable?
+ Extending your JSON model with Equatable in Flutter BLoC is a best practice
+ that enhances the efficiency and reliability of state management.
+ It simplifies equality checks and ensures consistent behavior
+ across your application, making your code cleaner and more maintainable.
+*/
+
 class Notes extends Equatable{
   final int? noteId;
   final String title;
   final String content;
   final String createdAt;
 
-  Notes({
+  const Notes({
     this.noteId,
     required this.title,
     required this.content,

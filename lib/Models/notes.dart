@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 Notes notesFromMap(String str) => Notes.fromMap(json.decode(str));
-
 String notesToMap(Notes data) => json.encode(data.toMap());
 
 /*
@@ -14,7 +13,6 @@ String notesToMap(Notes data) => json.encode(data.toMap());
  It simplifies equality checks and ensures consistent behavior
  across your application, making your code cleaner and more maintainable.
 */
-
 class Notes extends Equatable{
   final int? noteId;
   final String title;

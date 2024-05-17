@@ -5,7 +5,6 @@ import 'package:equatable/equatable.dart';
 
 Notes notesFromMap(String str) => Notes.fromMap(json.decode(str));
 String notesToMap(Notes data) => json.encode(data.toMap());
-
 /*
  Why Equatable?
  Extending your JSON model with Equatable in Flutter BLoC is a best practice

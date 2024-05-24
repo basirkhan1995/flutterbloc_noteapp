@@ -22,6 +22,7 @@ class _AllNotesState extends State<AllNotes> {
    });
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,13 +36,9 @@ class _AllNotesState extends State<AllNotes> {
       appBar: AppBar(
         title: const Text("Notes"),
       ),
-      body: BlocConsumer<NoteBloc, NoteState>(
+      body: BlocBuilder<NoteBloc, NoteState>(
 
-        listener: (context, state) {
-          if(state is GetNoteByIdState){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=> const UpdateNote()));
-          }
-        },
+        buildWhen: (previousState, currentState) =>  currentState is LoadedState,
 
         builder: (context, state) {
           if (state is LoadedState) {
@@ -55,6 +52,7 @@ class _AllNotesState extends State<AllNotes> {
                   return InkWell(
                     onTap: (){
                       context.read<NoteBloc>().add(GetNoteByIdEvent(state.allNotes[index].noteId!));
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=> const UpdateNote()));
                     },
                     child: Container(
                       margin: const EdgeInsets.all(8),
